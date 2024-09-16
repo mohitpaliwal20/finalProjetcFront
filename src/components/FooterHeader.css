@@ -1,0 +1,33 @@
+.footer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+  }
+  
+  .footer-header p {
+    font-size: 16px;
+    color: #000;
+  }
+  
+  .footer-header h1 {
+    font-size: 36px;
+    color: #000;
+  }
+  
+  .register-button .register-circle {
+    background-color: rgb(41, 41, 41);
+    width: 100px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #f4efef;
+    text-decoration: none;
+  }
+.footer-header a{
+    text-decoration: none;   
+}

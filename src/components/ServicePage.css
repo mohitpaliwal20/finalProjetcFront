@@ -1,0 +1,16 @@
+.service-page {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #eeefee;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  }
+  
+  .service-page-heading {
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 30px;
+    color: black;
+  }
+  
