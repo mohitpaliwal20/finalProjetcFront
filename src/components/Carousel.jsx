@@ -33,7 +33,7 @@ const Carousel = () => {
           className="absolute left-2 top-1/2 transform -translate-y-1/2 text-3xl text-gray-600 hover:text-black z-10"
           onClick={handlePrev}
         >
-          &#9664;
+          &larr;
         </button>
         <div className="overflow-hidden w-full">
           <ul
@@ -66,7 +66,7 @@ const Carousel = () => {
           className="absolute right-2 top-1/2 transform -translate-y-1/2 text-3xl text-gray-600 hover:text-black z-10"
           onClick={handleNext}
         >
-          &#9654;
+          &rarr;
         </button>
       </div>
     </div>

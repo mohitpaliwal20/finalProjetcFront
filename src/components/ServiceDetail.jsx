@@ -9,15 +9,15 @@ const ServiceDetail = ({ title, description }) => {
 
   return (
     <div
-      className={`my-4 p-4 rounded-lg bg-green-100 shadow-md cursor-pointer transition-all duration-300 ease-in-out border-l-4 ${
-        isOpen ? 'bg-green-200' : ''
+      className={`my-4 p-4 rounded-lg bg-gray-200 shadow-md cursor-pointer transition-all duration-300 ease-in-out border-l-4 ${
+        isOpen ? 'bg-gray-300' : ''
       }`}
       onClick={toggleDescription}
     >
       <div className="flex justify-between items-center">
         <h2 className="text-lg font-bold text-gray-700">{title}</h2>
         <span
-          className={`text-2xl text-gray-800 transform transition-transform duration-300 ${
+          className={`text-2xl text-gray-800 bg-gray-100 transform transition-transform duration-300 ${
             isOpen ? 'rotate-180' : ''
           }`}
         >

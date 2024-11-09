@@ -10,12 +10,12 @@ export default function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle login logic here
+    
     console.log('Login attempted with:', { email, password });
   };
 
   const handleForgotPassword = () => {
-    // Handle forgot password logic here
+   
     console.log('Forgot password clicked');
   };
 
@@ -25,7 +25,7 @@ export default function LoginPage() {
       <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl w-full grid grid-cols-1 lg:grid-cols-2 space-y-8 lg:space-y-0 lg:space-x-8">
           <div className="hidden lg:flex lg:items-center lg:justify-center">
-            {/* Add an image or additional content on the left side if desired */}
+           
             <img src={logo} alt="Login illustration" className="rounded-lg shadow-md" />
           </div>
           <div className="max-w-md w-full space-y-8">
