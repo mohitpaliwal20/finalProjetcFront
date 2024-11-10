@@ -1,22 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; 
-import UserDashboard from '../components/UserDashboard';  
-import MechanicDashboard from '../components/MechanicDashboard'; 
-import { useSelector } from "react-redux";
-function Dashboard() {
-  const navigate = useNavigate();  
-  const { token } = useSelector((state) => state.auth);
-  const { user } = useSelector((state) => state.profile);
+import React from 'react'
 
-  if (!token) {
-    return null; 
-  }
-
+export const Dashboard = () => {
   return (
-    <div>
-      {user.user_type === 'CUSTOMER' ? <UserDashboard /> : <MechanicDashboard />}
-    </div>
-  );
+    <div>Dashboard</div>
+  )
 }
-
-export default Dashboard;
+export default Dashboard
