@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import { FaSearch, FaCar } from 'react-icons/fa';
 import Navbar from '../components/Navbar'; 
 import FooterContent from '../components/FooterContent';
+import { useDispatch, useSelector } from 'react-redux';
 
 const products = [
   { id: 1, name: 'Wrench Set', image: '../Images/wrentch.webp', price: '2,000' },
@@ -50,26 +51,26 @@ const products = [
   { id: 43, name: 'Mechanic\'s Gloves', image: '../Images/glove.webp', price: '1,200' },
   { id: 44, name: 'Impact Wrench (Electric)', image: '../Images/wrentchele.jpg', price: '8,500' },
 ];
-
+import { addCart } from '../services/operations/cartSol';
 const Store = () => {
+    const dispatch=useDispatch()
     const [searchTerm, setSearchTerm] = useState('');
-    const [isSignedIn, setIsSignedIn] = useState(false);
+    const { token } = useSelector((state) => state.auth);
     const [showSearch, setShowSearch] = useState(false);
     const [cart, setCart] = useState([]);
     const navigate = useNavigate();
+
+    
   
-    const handleAddToCart = (product) => {
-      if (!isSignedIn) {
+    const handleAddToCart = (name,price) => {
+      if (!token) {
         navigate('/signup'); 
       } else {
-        setCart((prevCart) => [...prevCart, product]); 
-        alert(`${product.name} has been added to your cart successfully!`);
+         dispatch(addCart(name,price,navigate,token))
       }
     };
 
-    const handleProceedToBuy = () => {
-      navigate('/cart', { state: { cart } }); 
-    };
+    
 
     const filteredProducts = products.filter(product =>
       product.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -77,7 +78,7 @@ const Store = () => {
 
     return (
       <>
-        <Navbar handleProceedToBuy={handleProceedToBuy} />
+        {/* <Navbar handleProceedToBuy={handleProceedToBuy} /> */}
         <div className="flex justify-between items-center p-5 bg-gray-800 text-white">
           <h1 className="text-3xl font-bold flex items-center">
             <FaCar className="mr-2 text-gray-200" /> Automotive Store
@@ -105,7 +106,7 @@ const Store = () => {
               <h3 className="text-lg font-semibold">{product.name}</h3>
               <p className="text-gray-700">₹{product.price}</p>
               <button
-                onClick={() => handleAddToCart(product)}
+                onClick={() => handleAddToCart(product.name,product.price)}
                 
                 className="mt-4 w-full py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors"
               >

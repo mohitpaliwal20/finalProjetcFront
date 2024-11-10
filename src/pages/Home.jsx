@@ -12,7 +12,7 @@ import FooterContent from '../components/FooterContent';
 function App() {
   return (
     <div className="App">
-      <Navbar />
+     
       <HeroSection/>
       <HomeCard></HomeCard>
       <ServicePage></ServicePage>
