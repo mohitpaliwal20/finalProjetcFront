@@ -21,17 +21,38 @@ const Service = () => {
   const [tier, setTier] = useState("");
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
+  const [servic, setServic] = useState("");
   const navigate = useNavigate();
-
+  const servicee = [
+    {
+      id: 1,
+      name: "John Doe",
+      address: "123 Main St, City, Country",
+      img: "https://via.placeholder.com/150", // Placeholder image
+    },
+    {
+      id: 2,
+      name: "Jane Smith",
+      address: "456 Elm St, City, Country",
+      img: "https://via.placeholder.com/150", // Placeholder image
+    },
+    {
+      id: 3,
+      name: "Mike Johnson",
+      address: "789 Oak St, City, Country",
+      img: "https://via.placeholder.com/150", // Placeholder image
+    },
+  ];
   const filteredServices = services.filter((service) =>
     service.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleservice = (service) => {
-    if (!isSignedIn) {
+    if (isSignedIn) {
       navigate("/signup");
     } else {
       console.log(`${service.name} added to cart`);
+      setServic(service);
     }
   };
 
@@ -39,6 +60,7 @@ const Service = () => {
     setTier(selectedTier);
     setBrand("");
     setModel("");
+    setServic("");
   };
 
   const motorcycleBrands = [
@@ -91,10 +113,12 @@ const Service = () => {
   const handleBrandSelect = (selectedBrand) => {
     setBrand(selectedBrand);
     setModel("");
+    setServic("");
   };
 
   const handleModelSelect = (selectedModel) => {
     setModel(selectedModel);
+    setServic("");
   };
 
   return (
@@ -119,28 +143,28 @@ const Service = () => {
         />
       </div>
 
-      {isSignedIn ? (
+      {!isSignedIn ? (
         <div>
           <div className="w-full bg-gray-200 p-4 mb-8 rounded-lg">
             <div className="w-1/2 mx-auto flex justify-between items-center relative">
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-1 rounded-full bg-gray-300">
                 <div
                   className={`absolute top-0 left-0 h-full rounded-full ${
-                    tier && brand && model
+                    tier && brand && model && servic
                       ? "w-full bg-green-500"
+                      : tier && brand && model
+                      ? "w-4/5 bg-green-500"
                       : tier && brand
-                      ? "w-2/3 bg-green-500"
+                      ? "w-3/4 bg-green-500"
                       : tier
-                      ? "w-1/3 bg-green-500"
+                      ? "w-2/3 bg-green-500"
                       : "w-0"
                   }`}
                 />
               </div>
               <div className="relative z-10 flex flex-col items-center">
                 <div
-                  className={`w-20 h-20 flex items-center justify-center rounded-full text-em font-bold ${
-                    "bg-green-500" 
-                  }`}
+                  className={`w-20 h-20 flex items-center justify-center rounded-full text-em font-bold ${"bg-green-500"}`}
                 >
                   Vehicle
                 </div>
@@ -172,10 +196,21 @@ const Service = () => {
                   Services
                 </div>
               </div>
+              <div className="relative z-10 flex flex-col items-center">
+                <div
+                  className={`w-20 h-20 flex items-center justify-center rounded-full text-em font-bold ${
+                    tier && brand && model && servic
+                      ? "bg-green-500"
+                      : "bg-gray-400"
+                  }`}
+                >
+                  Book
+                </div>
+              </div>
             </div>
           </div>
           <br></br>
-    <br></br>
+          <br></br>
           {!tier && (
             <div className="flex justify-center gap-8 mb-8">
               <button
@@ -266,8 +301,8 @@ const Service = () => {
               ))}
             </div>
           )}
-          
-          {model && (
+
+          {model && !servic && (
             <div className="flex flex-wrap justify-center gap-8 mb-12">
               {filteredServices.map((service, index) => (
                 <div
@@ -287,6 +322,46 @@ const Service = () => {
                     className="mt-4 w-full py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors duration-300"
                   >
                     Book service
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {servic && (
+            <div className="flex flex-wrap justify-center gap-8 mb-12">
+              <h1 className="text-2xl font-bold text-gray-800 mb-4 w-full text-center">
+                Book your service
+              </h1>
+              {servicee.map((mechanic) => (
+                <div
+                  key={mechanic.id}
+                  className="w-full sm:w-80 md:w-96 p-6 bg-gray-100 rounded-lg shadow-lg"
+                >
+                  <div className="flex items-center mb-4">
+                    <img
+                      src={mechanic.img}
+                      alt={mechanic.name}
+                      className="w-20 h-20 object-cover rounded-md mr-4"
+                    />
+                    <div>
+                      <h2 className="text-xl font-semibold text-gray-800">
+                        Name : {mechanic.name}
+                      </h2>
+                      <p className="text-sm text-gray-600">
+                        Address : {mechanic.address}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      alert(`Booking ${mechanic.name} for your service!`);
+
+                      window.location.href = "/";
+                    }}
+                    className="w-full py-3 bg-gray-800 text-white rounded-lg hover:bg-green-600 transition-colors duration-300"
+                  >
+                    Book Now
                   </button>
                 </div>
               ))}
@@ -317,17 +392,15 @@ const Service = () => {
         </div>
       )}
 
-    <br>
-    </br>
-    <br></br>
-    <br></br>
-    <br></br>
-    <br></br>
-    <br></br>
-    <br></br>
-    <FooterContent />
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <FooterContent />
     </div>
-    
   );
 };
 
