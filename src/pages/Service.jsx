@@ -331,7 +331,7 @@ const Service = () => {
           {servic && (
             <div className="flex flex-wrap justify-center gap-8 mb-12">
               <h1 className="text-2xl font-bold text-gray-800 mb-4 w-full text-center">
-                Book your service
+                Book your Mechanic
               </h1>
               {servicee.map((mechanic) => (
                 <div
