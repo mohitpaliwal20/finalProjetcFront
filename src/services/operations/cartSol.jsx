@@ -11,26 +11,28 @@ export function addCart(name, price, navigate, token) {
     const toastId = toast.loading("Loading...");
     dispatch(setLoading(true));
     try {
+      console.log("Data arfe", name, price, token);
+
       const response = await apiConnector(
         "POST",
         cartEndpoint.ADD_CART_API,
-        { token: token, productname: name, quantiy: 1, price: price },
+        { token: token, productname: name, quantity: '1', price: price },  // Corrected 'quantiy' to 'quantity'
         {
           Authorization: `Bearer ${token}`,
         }
       );
-      console.log("CART API RESPONSE............", response.config);
-
-      console.log(response.data.success);
+      console.log("CART API RESPONSE............", response.data);
 
       if (!response.data.success) {
         throw new Error(response.data.message);
       }
 
-      toast.success("product Add Successfully");
+      toast.success("Product added successfully");
     } catch (error) {
-      console.log("SENDOTP API ERROR............", error);
-      toast.error(error.data.message);
+      toast.dismiss(toastId);
+      console.log("Cart API ERROR............", error);
+      const errorMessage = error?.response?.data?.message || error.message || "An error occurred";  // Added fallback for error message
+      toast.error(errorMessage);
     }
     dispatch(setLoading(false));
     toast.dismiss(toastId);

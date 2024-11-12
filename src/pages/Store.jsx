@@ -1,9 +1,10 @@
-import React, { useState , useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaSearch, FaCar } from 'react-icons/fa';
-import Navbar from '../components/Navbar'; 
+import Navbar from '../components/Navbar';
 import FooterContent from '../components/FooterContent';
 import { useDispatch, useSelector } from 'react-redux';
+import { addCart } from '../services/operations/cartSol';
 
 const products = [
   { id: 1, name: 'Wrench Set', image: '../Images/wrentch.webp', price: '2,000' },
@@ -51,74 +52,66 @@ const products = [
   { id: 43, name: 'Mechanic\'s Gloves', image: '../Images/glove.webp', price: '1,200' },
   { id: 44, name: 'Impact Wrench (Electric)', image: '../Images/wrentchele.jpg', price: '8,500' },
 ];
-import { addCart } from '../services/operations/cartSol';
+
 const Store = () => {
-    const dispatch=useDispatch()
-    const [searchTerm, setSearchTerm] = useState('');
-    const { token } = useSelector((state) => state.auth);
-    const [showSearch, setShowSearch] = useState(false);
-    const [cart, setCart] = useState([]);
-    const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [searchTerm, setSearchTerm] = useState('');
+  const { token } = useSelector((state) => state.auth);
+  const [showSearch, setShowSearch] = useState(false);
+  const navigate = useNavigate();
 
-    
-  
-    const handleAddToCart = (name,price) => {
-      if (!token) {
-        navigate('/signup'); 
-      } else {
-         dispatch(addCart(name,price,navigate,token))
-      }
-    };
+  const handleAddToCart = (name, price) => {
+    if (!token) {
+      navigate('/signup');
+    } else {
+      dispatch(addCart(name, price, navigate, token));
+    }
+  };
 
-    
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-    const filteredProducts = products.filter(product =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    return (
-      <>
-        {/* <Navbar handleProceedToBuy={handleProceedToBuy} /> */}
-        <div className="flex justify-between items-center p-5 bg-gray-800 text-white">
-          <h1 className="text-3xl font-bold flex items-center">
-            <FaCar className="mr-2 text-gray-200" /> Automotive Store
-          </h1>
-          {showSearch && (
-            <input
-              type="text"
-              placeholder="Search automotive products..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-1/3 p-2 rounded border border-gray-300 bg-gray-100"
-            />
-          )}
-          <FaSearch
-            className="text-2xl cursor-pointer hover:text-yellow-400"
-            onClick={() => setShowSearch(!showSearch)}
+  return (
+    <>
+      <div className="flex justify-between items-center p-5 bg-gray-800 text-white">
+        <h1 className="text-3xl font-bold flex items-center">
+          <FaCar className="mr-2 text-gray-200" /> Automotive Store
+        </h1>
+        {showSearch && (
+          <input
+            type="text"
+            placeholder="Search automotive products..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-1/3 p-2 rounded border border-gray-300 bg-gray-100"
           />
-          
-        </div>
+        )}
+        <FaSearch
+          className="text-2xl cursor-pointer hover:text-yellow-400"
+          onClick={() => setShowSearch(!showSearch)}
+        />
+      </div>
 
-        <div className="flex flex-wrap justify-center gap-8 mb-12">
-          {filteredProducts.map((product) => (
-            <div key={product.id} className="w-52 p-6 border rounded-lg bg-gray-100 shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
-              <img src={product.image} alt={product.name} className="w-full h-40 object-cover rounded-md mb-4" />
-              <h3 className="text-lg font-semibold">{product.name}</h3>
-              <p className="text-gray-700">₹{product.price}</p>
-              <button
-                onClick={() => handleAddToCart(product.name,product.price)}
-                
-                className="mt-4 w-full py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors"
-              >
-                Add to Cart
-              </button>
-            </div>
-          ))}
-        </div>
+      <div className="flex flex-wrap justify-center gap-8 mb-12">
+        {filteredProducts.map((product) => (
+          <div key={product.id} className="w-52 p-6 border rounded-lg bg-gray-100 shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
+            <img src={product.image} alt={product.name} className="w-full h-40 object-cover rounded-md mb-4" />
+            <h3 className="text-lg font-semibold">{product.name}</h3>
+            <p className="text-gray-700">₹{product.price}</p>
+            <button
+              onClick={() => handleAddToCart(product.name, product.price)}
+              className="mt-4 w-full py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors"
+            >
+              Add to Cart
+            </button>
+          </div>
+        ))}
+      </div>
 
-        <FooterContent />
-      </>
-    );
+      <FooterContent />
+    </>
+  );
 };
 
 export default Store;
