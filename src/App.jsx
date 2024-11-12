@@ -6,7 +6,9 @@ import Signup from './pages/Signup';
 import Service from './pages/Service';
 import LoginPage from './pages/Login';
 import Cart from './pages/Cart';
+import VerifyEmail from "./pages/VerifyEmail"
 import Navbar from './components/Navbar';
+import Dashboard from './pages/Dashboard';
 function App() {
   return (
     <Router>
@@ -18,6 +20,8 @@ function App() {
         <Route path='/service' element={<Service/>}/>
         <Route path='/login' element={<LoginPage/>}/>
         <Route path="/cart" element={<Cart />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route path='/dashboard' element={<Dashboard/>}/>
       </Routes>
     </Router>
   );

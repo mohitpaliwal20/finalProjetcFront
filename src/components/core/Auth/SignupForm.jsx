@@ -49,6 +49,7 @@ export default function SignupPage() {
       setErrors(newErrors)
       return
     }
+console.log("formsfsa79yu",formData);
 
     dispatch(setSignupData(formData))
     dispatch(sendOtp(formData.email, navigate))

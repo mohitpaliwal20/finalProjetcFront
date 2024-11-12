@@ -5,7 +5,7 @@ import { setLoading, setToken } from "../../slices/authSlice";
 // import { setUser } from "../../slices/profileSlice";
 import { apiConnector } from "../apiconnector";
 import { endpoints } from "../api";
- 
+
 const {
   SENDOTP_API,
   SIGNUP_API,
@@ -27,6 +27,7 @@ export function sendOtp(email, navigate) {
         email,
         checkUserPresent: true,
       });
+
       console.log("SENDOTP API RESPONSE............", response.config);
 
       console.log(response.data.success);
@@ -48,20 +49,22 @@ export function sendOtp(email, navigate) {
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-export function signUp(
-        formData,
-        navigate
-) {
-console.log("formData",formData);
+export function signUp(formData, navigate) {
+  console.log("formData", formData);
 
-  const {firstName,
+  const {
+    firstName,
     lastName,
     email,
     password,
     confirmPassword,
-    
     otp,
-    phone_number}=formData
+    phone_number,
+    address,
+    state,
+    city,
+    pincode
+  } = formData;
   return async (dispatch) => {
     const toastId = toast.loading("Loading...");
     dispatch(setLoading(true));
@@ -71,10 +74,14 @@ console.log("formData",formData);
         lastName,
         email,
         password,
-        confirmPassword,
         usertype:formData.userType,
+        confirmPassword,
         otp,
-        phone_number
+        phone_number,
+        address,
+        state,
+        city,
+        pincode
       }).catch((error) => console.log("error form frontend", error));
 
       console.log("SIGNUP API RESPONSE............", response);
@@ -118,7 +125,6 @@ export function login(email, password, navigate) {
 
       toast.success("Login Successful");
       dispatch(setToken(response.data.token));
-  
 
       localStorage.setItem("token", JSON.stringify(response.data?.token));
       localStorage.setItem("user", JSON.stringify(response.data.user));

@@ -16,7 +16,7 @@ export function addCart(name, price, navigate, token) {
       const response = await apiConnector(
         "POST",
         cartEndpoint.ADD_CART_API,
-        { token: token, productname: name, quantity: '1', price: price },  // Corrected 'quantiy' to 'quantity'
+        { token: token, productname: name, quantity: 1, price: price },  // Corrected 'quantiy' to 'quantity'
         {
           Authorization: `Bearer ${token}`,
         }
